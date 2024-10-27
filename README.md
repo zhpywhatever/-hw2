@@ -1,69 +1,165 @@
-# ZJU-blockchain-course-2024
+# 项目文档：**去中心化房屋交易系统**
 
-⬆ 可以️修改成你自己的项目名。
+## 一、项目介绍
 
-> 第二次作业要求（以下内容提交时可以删除）：
-> 
-> 去中心化房屋购买系统，参与方包括：房屋拥有者，有购买房屋需求的用户
->
-> 建立一个简易的房屋出售系统，在网站中：
-> - 创建一个（ERC721）合约，在合约中发行房屋集合，每个NFT代表一栋房屋。让部分用户免费领取部分房屋NFT，用于后面的测试。
-> - 在网站中，用户可以出售，或者使用测试以太币购买房屋。每个用户可以： 
->  1. 用户查看自己拥有的房产列表。并可以挂单出售自己的房屋（挂单包含价格等信息）。
->  2. 用户查看所有出售中的房产，并查询一栋房产的主人，及各种挂单信息。
->  3. 用户选择支付房屋价格对应的测试以太币，购买某个其他用户出售的房产。购买后房产拥有权应当发生变化。
->  4. 平台收取手续费：在一个房产出售完成时，用户支付的部分测试以太币（=某栋房产在平台上的挂单时长（timestamp）* 固定比例 * 房产价格）应该被转入某个特定账户（如合约部署者）。
-      。
-> - （Bonus，如果想要完成Bonus，可以直接将功能整合进上述要求中）发行一个（ERC20）合约，允许用户将测试以太币兑换成ERC20积分，并使用ERC20积分完成购买房屋的流程。
-> - 请大家专注于功能实现，网站UI美观程度不纳入评分标准，但要让用户能够舒适操作。简便起见，可以在网上找图片代表不同房产，不需要将图片上链。
+这是一个**基于区块链的去中心化房产交易系统**，集成了ERC20代币与ERC721房产NFT。用户可以通过系统完成房屋的铸造、上架、交易，并使用ERC20代币与以太坊进行兑换。该系统实现了透明、安全的房产交易，同时支持与MetaMask等钱包的交互。
 
-**以下内容为作业仓库的README.md中需要描述的内容。请根据自己的需要进行修改并提交。**
+**主要特点：**  
+1. **ERC721** 实现房产NFT，每个房屋为独特的不可替代资产。  
+2. **ERC20** 代币用于房屋交易和ETH兑换。  
+3. 系统支持**房产上架、购买、铸造**以及**代币兑换**功能。  
+4. 集成**MetaMask**进行钱包授权及账户管理。  
 
-作业提交方式为：**提交视频文件**和**仓库的链接**到指定邮箱。
+---
 
-## 如何运行
+## 二、功能与实现分析
 
-补充如何完整运行你的应用。
+### 功能列表：
+1. **房屋铸造与上架**  
+   用户可以铸造房屋NFT，并设置价格将其上架市场。(增加房产的功能在前端已进行注释，需要时可以将`/frontend/src/components/MyProperties.tsx:145`处的代码块取消注释)
+   
+`添加房产`
 
-1. 在本地启动ganache应用。
+![alt text](<imgs/截屏2024-10-27 19.20.53.png>)
+`上架房产`
 
-2. 在 `./contracts` 中安装需要的依赖，运行如下的命令：
-    ```bash
-    npm install
-    ```
-3. 在 `./contracts` 中编译合约，运行如下的命令：
-    ```bash
-    npx hardhat compile
-    ```
-4. ...
-5. ...
-6. 在 `./frontend` 中安装需要的依赖，运行如下的命令：
-    ```bash
-    npm install
-    ```
-7. 在 `./frontend` 中启动前端程序，运行如下的命令：
-    ```bash
-    npm run start
-    ```
+![alt text](<imgs/截屏2024-10-27 19.15.06.png>)
+`交互界面`
 
-## 功能实现分析
+![alt text](<imgs/截屏2024-10-27 19.23.18.png>)
+`成功上架`
 
-简单描述：项目完成了要求的哪些功能？每个功能具体是如何实现的？
+![alt text](<imgs/截屏2024-10-27 19.24.23.png>)
 
-建议分点列出。
 
-## 项目运行截图
+2. **房屋交易与手续费计算**  
+   使用ERC20代币购买上架的房产NFT，系统按持有时间动态收取手续费。
 
-放一些项目运行截图。
+`房产列表界面`
 
-项目运行成功的关键页面和流程截图。主要包括操作流程以及和区块链交互的截图。
+![alt text](<imgs/截屏2024-10-27 19.27.11.png>)  
 
-## 参考内容
+`定义支出上限`
 
-- 课程的参考Demo见：[DEMOs](https://github.com/LBruyne/blockchain-course-demos)。
+![alt text](<imgs/截屏2024-10-27 19.28.21.png>)
+![alt text](<imgs/截屏2024-10-27 20.13.05.png>)
+![alt text](<imgs/截屏2024-10-27 20.14.44.png>)
+`成功购买`
 
-- 快速实现 ERC721 和 ERC20：[模版](https://wizard.openzeppelin.com/#erc20)。记得安装相关依赖 ``"@openzeppelin/contracts": "^5.0.0"``。
+![alt text](<imgs/截屏2024-10-27 20.15.07.png>)
 
-- 如何实现ETH和ERC20的兑换？ [参考讲解](https://www.wtf.academy/en/docs/solidity-103/DEX/)
 
-如果有其它参考的内容，也请在这里陈列。
+3. **ETH 与 ERC20 兑换**  
+   用户可以通过系统用ETH兑换ERC20代币，用于房屋购买和其他支付。
+
+`兑换界面`
+
+![alt text](<imgs/截屏2024-10-27 20.18.10.png>)
+`交互界面`
+
+![alt text](<imgs/截屏2024-10-27 20.19.11.png>)
+`兑换成功`
+
+![alt text](<imgs/截屏2024-10-27 20.19.51.png>)
+4. **钱包交互与余额查询**  
+   用户登录MetaMask钱包查看账户资产和余额。
+![alt text](<imgs/截屏2024-10-27 20.21.09.png>)
+
+---
+
+## 三、项目运行步骤
+
+### 1. 环境准备
+- 安装 **Node.js** 和 **MetaMask** 插件。
+- 使用 **Hardhat** 进行合约部署。
+- 确保本地或测试网络上有足够的ETH用于合约操作。
+
+### 2. 合约部署与配置
+1. 在项目根目录执行以下命令，安装必要的依赖：
+   ```bash
+   npm install
+   npm install @openzeppelin/contracts web3
+   ```
+
+2. 部署合约：
+   - 部署 **ERC20** 合约 `MyERC20.sol`
+   - 部署 **房产交易合约** `BuyMyRoom.sol`
+   - 获取部署后的合约地址并配置在前端代码中的 `contracts.js` 文件。
+- 这里可以直接在contracts目录下执行
+  ```bash
+   npx hardhat compile
+   npx hardhat run ./scripts/deploy.ts --network ganache
+  ```
+
+### 3. 启动前端项目
+1. 启动前端应用：
+   ```bash
+   npm install
+   npm start
+   ```
+2. 使用MetaMask连接钱包，并选择正确的网络。
+
+---
+
+## 四、关键界面和操作流程截图
+
+### 1. **登录钱包并加载房产列表**
+用户使用MetaMask授权后加载当前可购买的房产。
+
+### 2. **房屋上架**
+房屋所有者为NFT设置价格并上架。
+
+
+
+### 3. **购买房产流程**
+用户使用ERC20代币购买上架房屋，交易成功后NFT所有权变更。
+
+
+
+### 4. **ETH与代币兑换**
+用户用ETH兑换ERC20代币，用于未来的房屋交易。
+
+
+
+---
+
+## 五、关键合约代码片段
+
+### 1. **ERC20代币合约**
+```solidity
+function exchangeEtherForTokens() external payable {
+    require(msg.value > 0, "Must send ETH");
+    uint256 tokenAmount = msg.value * EXCHANGE_RATE;
+    _mint(msg.sender, tokenAmount);
+}
+```
+
+### 2. **房屋交易逻辑**
+```solidity
+function buyHouse(uint256 tokenId) external {
+    House storage house = houses[tokenId];
+    require(house.isListed, "House not listed");
+    
+    uint256 duration = block.timestamp - house.listedTimestamp;
+    uint256 fee = duration * FEE_RATE;
+    uint256 sellerAmount = house.price - fee;
+
+    myERC20.transferFrom(msg.sender, platformOwner, fee);
+    myERC20.transferFrom(msg.sender, house.owner, sellerAmount);
+
+    _transfer(house.owner, msg.sender, tokenId);
+    house.owner = msg.sender;
+    house.isListed = false;
+}
+```
+
+---
+
+## 六、项目总结
+
+该系统结合了**区块链技术与智能合约**，实现了透明、去中心化的房产交易流程。使用ERC20代币作为支付手段提升了流通性，并借助ERC721确保房产NFT的唯一性。未来可以进一步优化用户体验，如**支持更多支付方式**，**添加房产管理功能**等，以提升系统的实用性和市场价值。
+
+---
+
+**联系方式**  
+如有任何问题，请联系开发者：[19582110889]

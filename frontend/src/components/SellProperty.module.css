@@ -1,0 +1,44 @@
+/* SellProperty.module.css */
+
+.container {
+    max-width: 600px; /* 最大宽度 */
+    margin: 0 auto; /* 水平居中 */
+    padding: 20px; /* 内边距 */
+    background-color: #f8f9fa; /* 背景颜色 */
+    border-radius: 8px; /* 圆角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影 */
+}
+
+h1 {
+    text-align: center; /* 居中 */
+    color: #343a40; /* 标题颜色 */
+}
+
+input {
+    width: calc(100% - 22px); /* 输入框宽度 */
+    padding: 10px; /* 内边距 */
+    margin-top: 10px; /* 上边距 */
+    border: 1px solid #ced4da; /* 边框 */
+    border-radius: 4px; /* 圆角 */
+    font-size: 16px; /* 字体大小 */
+}
+
+button {
+    padding: 10px 15px; /* 按钮内边距 */
+    border: none; /* 无边框 */
+    border-radius: 4px; /* 圆角 */
+    background-color: #007bff; /* 按钮颜色 */
+    color: white; /* 字体颜色 */
+    cursor: pointer; /* 鼠标指针样式 */
+    margin-top: 10px; /* 上边距 */
+    transition: background-color 0.3s; /* 动画效果 */
+}
+
+button:hover {
+    background-color: #0056b3; /* 悬停效果 */
+}
+
+button:disabled {
+    background-color: #6c757d; /* 禁用状态颜色 */
+    cursor: not-allowed; /* 鼠标指针样式 */
+}
