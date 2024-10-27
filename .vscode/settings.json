@@ -1,5 +1,0 @@
-{
-    "solidity.remappingsUnix": ["@openzeppelin/=node_modules/@openzeppelin/"],
-    "solidity.remappings": ["@openzeppelin/=node_modules/@openzeppelin/"],
-
-}
